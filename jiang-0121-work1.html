@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大连旅游</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
+        ul{list-style:none;}
+        a{text-decoration:none;color:#333;}
+
+        /* 导航栏 */
+        header{
+            width:100%;
+            background:#ffffff;
+            padding:12px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            border-bottom:1px solid #eee;
+        }
+        .logo{font-size:20px;font-weight:bold;color:#004488;}
+        .nav-menu{display:flex;gap:36px;}
+        .nav-menu a{color:#222;}
+        .nav-menu a:hover{color:#0066bb;}
+
+        /* 轮播图 */
+        .carousel{
+            width:100%;
+            height:420px;
+            overflow:hidden;
+            position:relative;
+        }
+        .carousel-inner{
+            width:300%;
+            height:100%;
+            display:flex;
+            transition:transform 0.6s ease;
+        }
+        .carousel-item{width:100%;height:100%;}
+        .carousel-item img{width:100%;height:100%;object-fit:cover;}
+        .carousel-btn{
+            position:absolute;top:50%;transform:translateY(-50%);
+            width:40px;height:40px;border-radius:50%;
+            background:rgba(255,255,255,0.7);
+            border:none;font-size:20px;cursor:pointer;
+        }
+        .prev{left:20px;}
+        .next{right:20px;}
+        .dots{
+            position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+            display:flex;gap:8px;
+        }
+        .dot{width:10px;height:10px;border-radius:50%;background:#fff;opacity:0.5;cursor:pointer;}
+        .dot.active{opacity:1;}
+
+        /* 中间区域：左侧菜单 + 大图 + 资讯 */
+        .section1{
+            width:1200px;margin:30px auto;
+            display:grid;
+            grid-template-columns:180px 1fr 260px;
+            gap:20px;
+        }
+        .left-menu{
+            background:#004488;color:#fff;padding:20px;
+        }
+        .left-menu h3{margin-bottom:16px;font-size:16px;}
+        .left-menu li{margin:10px 0;font-size:14px;}
+        .center-big img{width:100%;border-radius:4px;}
+        .right-news{
+            border:1px solid #eee;padding:14px;
+        }
+        .right-news h3{display:flex;justify-content:space-between;font-size:16px;margin-bottom:12px;}
+        .right-news li{font-size:13px;color:#444;margin:8px 0;}
+
+        /* 精品线路 */
+        .line-wrap{width:1200px;margin:40px auto;}
+        .line-title{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+        .line-tabs{display:flex;gap:8px;margin-left:20px;}
+        .line-tabs span{padding:4px 12px;background:#e8f2ff;border-radius:12px;font-size:14px;cursor:pointer;}
+        .line-tabs span.active{background:#ffcc00;}
+        .line-container{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+        .line-card{display:flex;gap:16px;}
+        .line-card img{width:200px;height:130px;object-fit:cover;border-radius:4px;}
+        .line-text h4{margin-bottom:8px;color:#004488;}
+        .line-text p{font-size:13px;color:#555;line-height:1.6;}
+
+        /* 旅游向导 5卡片 */
+        .guide-wrap{width:1200px;margin:50px auto;text-align:center;}
+        .guide-wrap>h2{margin-bottom:30px;font-size:22px;color:#222;position:relative;}
+        .guide-wrap>h2::before,.guide-wrap>h2::after{content:"——";margin:0 20px;color:#aaa;}
+        .guide-box{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+        .guide-card{background:#fff;border:1px solid #eee;overflow:hidden;}
+        .guide-card img{width:100%;height:180px;object-fit:cover;}
+        .guide-card h4{margin:10px 0;font-size:15px;}
+        .guide-card p{font-size:12px;color:#555;padding:0 10px 14px;line-height:1.5;}
+
+        /* 游记攻略 */
+        .note-wrap{width:1200px;margin:50px auto;text-align:center;}
+        .note-wrap>h2{margin-bottom:30px;font-size:22px;color:#222;position:relative;}
+        .note-wrap>h2::before,.note-wrap>h2::after{content:"——";margin:0 20px;color:#aaa;}
+        .note-box{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+        .note-card img{width:140px;height:140px;border-radius:50%;object-fit:cover;margin-bottom:10px;}
+        .note-card h4{font-size:15px;margin-bottom:6px;}
+        .note-card p{font-size:12px;color:#555;}
+
+        /* 页脚 */
+        footer{
+            width:100%;background:#003366;color:#fff;
+            text-align:center;padding:20px;font-size:13px;margin-top:40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="logo">大连旅游</div>
+        <ul class="nav-menu">
+            <li><a href="#">大连首页</a></li>
+            <li><a href="#">热门景点</a></li>
+            <li><a href="#">特色美食</a></li>
+            <li><a href="#">传统文化</a></li>
+            <li><a href="#">旅游攻略</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+    </header>
+
+    <!-- 顶部轮播 -->
+    <div class="carousel">
+        <div class="carousel-inner" id="carouselInner">
+            <div class="carousel-item">
+                <img src="https://img1.baidu.com/it/u=3821232411,3102213000&fm=253&fmt=auto&app=138&f=JPEG?w=1920&h=800" alt="大连">
+            </div>
+            <div class="carousel-item">
+                <img src="https://img0.baidu.com/it/u=2777732304,1701102130&fm=253&fmt=auto&app=120&f=JPEG?w=1920&h=800" alt="大连">
+            </div>
+            <div class="carousel-item">
+                <img src="https://img2.baidu.com/it/u=1112431200,2773221400&fm=253&fmt=auto&app=120&f=JPEG?w=1920&h=800" alt="大连">
+            </div>
+        </div>
+        <button class="carousel-btn prev">&lt;</button>
+        <button class="carousel-btn next">&gt;</button>
+        <div class="dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+        </div>
+    </div>
+
+    <!-- 第一栏：左侧菜单、中间大图、右侧资讯 -->
+    <div class="section1">
+        <div class="left-menu">
+            <h3>大连旅游</h3>
+            <ul>
+                <li>社区活动</li>
+                <li>会议展览</li>
+                <li>旅游攻略</li>
+                <li>旅游贴士</li>
+                <li>图片</li>
+                <li>视频</li>
+            </ul>
+        </div>
+        <div class="center-big">
+            <img src="https://img0.baidu.com/it/u=1242412201,3300122141&fm=253&fmt=auto&app=138&f=JPEG?w=1000&h=500" alt="大连全景">
+        </div>
+        <div class="right-news">
+            <h3>最新资讯 <span>更多资讯></span></h3>
+            <ul>
+                <li>·大连市海洋文化节盛大开幕</li>
+                <li>·大连国际邮轮母港建设新进展</li>
+                <li>·2025大连国际啤酒节精彩启动</li>
+                <li>·大连金石滩度假区国家旅游</li>
+                <li>·大连旅游数字化新成果</li>
+                <li>·星海“海宝”浪漫景区长卷</li>
+                <li>·大连现代博物馆新馆对外开放</li>
+                <li>·大连海鲜美食文化活动火热进行</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 精品线路 -->
+    <div class="line-wrap">
+        <div class="line-title">
+            <h2>精品线路</h2>
+            <div class="line-tabs">
+                <span class="active">全线观看</span>
+                <span>夜游大连</span>
+                <span>经典风景</span>
+                <span>台海路</span>
+                <span>周边游</span>
+                <span>更多路线></span>
+            </div>
+        </div>
+        <div class="line-container">
+            <div class="line-card">
+                <img src="https://img2.baidu.com/it/u=1200213101,2210011200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <div class="line-text">
+                    <h4>01 浪漫海都 魅力大连</h4>
+                    <p>在滨海宽阔的旅游城市，读着碧海蓝天的浪漫情怀，感受现代都市与海洋文化的完美融合。</p>
+                </div>
+            </div>
+            <div class="line-card">
+                <img src="https://img0.baidu.com/it/u=1300121201,1100213200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <div class="line-text">
+                    <h4>02 大连 东北明珠</h4>
+                    <p>大连作为东北重要的港口城市，现代化的滨海都市风貌。</p>
+                </div>
+            </div>
+            <div class="line-card">
+                <img src="https://img2.baidu.com/it/u=1220012201,3300121200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <div class="line-text">
+                    <h4>03 走进大连，体验海洋文明</h4>
+                    <p>感受大连作为海洋文化名城的独特魅力，领略现代都市与海洋自然的和谐共生。</p>
+                </div>
+            </div>
+            <div class="line-card">
+                <img src="https://img1.baidu.com/it/u=1110012201,2200121200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <div class="line-text">
+                    <h4>04 海天一色，风情大连</h4>
+                    <p>大连独特的海岸风情与现代都市文化，展现东北沿海城市的魅力与活力。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 旅游向导 -->
+    <div class="guide-wrap">
+        <h2>旅游向导</h2>
+        <div class="guide-box">
+            <div class="guide-card">
+                <img src="https://img0.baidu.com/it/u=1210012201,3100121200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <h4>景区</h4>
+                <p>大连有众多国家5A级风景名胜，包括金石滩国家旅游度假区、老虎滩海洋公园等知名景点</p>
+            </div>
+            <div class="guide-card">
+                <img src="https://img2.baidu.com/it/u=1310012201,2100121200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <h4>文化</h4>
+                <p>大连文化底蕴深厚，既有现代都市文化，又保留着深厚的历史文化遗产和海洋文化特色</p>
+            </div>
+            <div class="guide-card">
+                <img src="https://img1.baidu.com/it/u=1410012201,1100121200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <h4>美食</h4>
+                <p>大连海鲜丰富，特色小吃众多。烤鱿鱼、海鲜烧烤、咸鱼饼子、蚬子蒸蛋等地方小吃</p>
+            </div>
+            <div class="guide-card">
+                <img src="https://img2.baidu.com/it/u=1510012201,3100121200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <h4>购物</h4>
+                <p>大连商场种类丰富，从高端商场到特色街市应有尽有，天津街、青泥洼桥是主要商业区</p>
+            </div>
+            <div class="guide-card">
+                <img src="https://img0.baidu.com/it/u=1610012201,2100121200&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300">
+                <h4>娱乐</h4>
+                <p>大连水族馆、景点、酒吧，KTV，演出场所众多，俄罗斯风情街是夜间休闲好去处</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游记攻略 -->
+    <div class="note-wrap">
+        <h2>游记攻略</h2>
+        <div class="note-box">
+            <div class="note-card">
+                <img src="https://img2.baidu.com/it/u=1710012201,3100121200&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400">
+                <h4>星海湾</h4>
+                <p>海滨城市 浪漫之海</p>
+            </div>
+            <div class="note-card">
+                <img src="https://img0.baidu.com/it/u=1810012201,2100121200&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400">
+                <h4>老虎滩</h4>
+                <p>海洋世界 极地探险</p>
+            </div>
+            <div class="note-card">
+                <img src="https://img1.baidu.com/it/u=1910012201,1100121200&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400">
+                <h4>金石滩</h4>
+                <p>地质奇观 黄金海岸</p>
+            </div>
+            <div class="note-card">
+                <img src="https://img2.baidu.com/it/u=1010012201,3100121200&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400">
+                <h4>旅顺口</h4>
+                <p>历史见证 红色记忆</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        ©2025 千里山海 醉美大连 版权所有 | 辽ICP备12345678号 | 服务热线：400-123-4567
+    </footer>
+
+    <!-- JS轮播 -->
+    <script>
+        const inner = document.getElementById("carouselInner");
+        const dots = document.querySelectorAll(".dot");
+        let index = 0;
+        function changeSlide(i){
+            index = i;
+            inner.style.transform = `translateX(-${index*100}%)`;
+            dots.forEach(d=>d.classList.remove("active"));
+            dots[index].classList.add("active");
+        }
+        // 点击小圆点
+        dots.forEach((dot,i)=>{
+            dot.onclick = ()=>changeSlide(i);
+        })
+        // 左右按钮
+        document.querySelector(".next").onclick = ()=>{
+            index = (index+1)%3;
+            changeSlide(index);
+        }
+        document.querySelector(".prev").onclick = ()=>{
+            index = (index-1+3)%3;
+            changeSlide(index);
+        }
+        // 自动轮播
+        setInterval(()=>{
+            index = (index+1)%3;
+            changeSlide(index);
+        },4000);
+    </script>
+</body>
+</html>
+
